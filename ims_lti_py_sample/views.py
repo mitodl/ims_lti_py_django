@@ -62,8 +62,6 @@ def add_problem(request):
             return render_to_response("ims_lti_py_sample/error.html",  RequestContext(request))
 
 def fix_url(str):
-    old = "https://localhost/"
-    new = "http://192.168.33.10/"
     if settings.LTI_URL_FIX:
         for old,new in settings.LTI_URL_FIX.itervalues():
             if str.find(old) == 0:

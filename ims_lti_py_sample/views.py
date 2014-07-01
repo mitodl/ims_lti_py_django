@@ -37,6 +37,7 @@ def index(request):
         session['message'] = "{}".format(e)
         pass
     session['is_valid'] = is_valid
+    # copy request to dictionary
     request_dict = dict()
     for r in request.POST.keys():
         request_dict[r] = request.POST[r]

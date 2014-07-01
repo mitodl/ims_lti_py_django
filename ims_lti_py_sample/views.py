@@ -65,7 +65,7 @@ def fix_url(str):
     old = "https://localhost/"
     new = "http://192.168.33.10/"
     if settings.LTI_URL_FIX:
-        for old,new in settings.LTI_URL_FIX.itervalues():
+        for old,new in settings.LTI_URL_FIX.iteritems():
             if str.find(old) == 0:
                 return u"{}{}".format( new , str[len(old):])
     return str

@@ -64,8 +64,9 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+if True:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config() or DATABASES['default']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

@@ -20,10 +20,10 @@ def index(request):
     try:
         consumer_key = settings.CONSUMER_KEY
         secret = settings.LTI_SECRET
-        request_dict = dict()
-        for r in request.POST.keys():
-            request_dict[r] = request.POST[r]
-        request_dict['lis_outcome_service_url'] = fix_url(request_dict['lis_outcome_service_url'])
+        request_dict = request.POST
+        # for r in request.POST.keys():
+        #     request_dict[r] = request.POST[r]
+        # request_dict['lis_outcome_service_url'] = fix_url(request_dict['lis_outcome_service_url'])
 
         tool = DjangoToolProvider(consumer_key, secret, request_dict)
         is_valid = tool.is_valid_request(request)

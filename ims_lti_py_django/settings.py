@@ -95,3 +95,5 @@ LTI_SECRET = "__lti_secret__"
 LTI_URL_FIX = {
     "https://localhost/":"http://192.168.33.10/"
 }
+## Heroku SSL proxy fix
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -10,7 +10,6 @@ import oauth2
 
 @csrf_exempt
 def index(request):
-    print "REQUEST START"
     if settings.LTI_DEBUG:
         print "META"
         print request.META
@@ -30,15 +29,21 @@ def index(request):
         is_valid = tool.is_valid_request(request)
     except oauth2.MissingSignature,e:
         is_valid = False
+        session['message'] = "{}".format(e)
         pass
     except oauth2.Error,e:
         is_valid = False
+        session['message'] = "{}".format(e)
         pass
     except KeyError,e:
         is_valid = False
+        session['message'] = "{}".format(e)
         pass
     session['is_valid'] = is_valid
     session['LTI_POST'] = pickle.dumps( request_dict )
+    if settings.LTI_DEBUG:
+        for key in session.keys():
+            print "{} = {}\n".format(key,session[key])
     if not is_valid:
             return render_to_response("ims_lti_py_sample/error.html",  RequestContext(request))
     return redirect('AddProblem')
@@ -62,8 +67,6 @@ def add_problem(request):
             return render_to_response("ims_lti_py_sample/error.html",  RequestContext(request))
 
 def fix_url(str):
-    old = "https://localhost/"
-    new = "http://192.168.33.10/"
     if settings.LTI_URL_FIX:
         for old,new in settings.LTI_URL_FIX.iteritems():
             if str.find(old) == 0:

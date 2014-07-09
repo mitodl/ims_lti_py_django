@@ -6,4 +6,5 @@ This is initial setup deployed on:
 Consumer secret & key are stored in settings.
 
 It has been tested to work with following LMS:
-    - edX LMS
+    - edX LMS (vagrant localhost)
+    - edX LMS (preview.edge.edx.org)

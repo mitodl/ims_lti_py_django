@@ -4,5 +4,16 @@
 </head>
 <body>
 IMS LTI
+
+<form action="{% url "AddProblem"%}" method="post">
+    <label for="your_name">What is 2+3:</label>
+    <input id="your_name" type="text" name="result" value="{{ result }}">
+    <input type="submit" value="OK">
+</form>
+<pre>
+{% if show %}
+Score is: {{ score }}
+Is success: {{ success }}
+{% endif %}
 </body>
 </html>

@@ -47,11 +47,11 @@ def index(request):
         print "session: message = {}".format( session['message'])
     if not is_valid:
             return render_to_response("ims_lti_py_sample/error.html",  RequestContext(request))
-    return redirect('AddProblem')
+    #return redirect('AddProblem')
+    return render_to_response( "ims_lti_py_sample/index.html" , dict() , RequestContext(request))
 
 @csrf_exempt
 def add_problem(request):
-    print "Add problem session"
     session = request.session
     if session['LTI_POST']:
         try:
@@ -61,9 +61,20 @@ def add_problem(request):
             consumer_key = settings.CONSUMER_KEY
             secret = settings.LTI_SECRET
             tool = DjangoToolProvider(consumer_key, secret, request_post)
-            post_result = tool.post_replace_result(.32,{'message_identifier':'edX_fix'})
+
+            result = float(request.POST.get('result'))
+            if result == 5:
+                score = '1.00'
+            else:
+                score = '0.00'
+            post_result = tool.post_replace_result(score,{'message_identifier':'edX_fix'})
             print post_result.is_success()
-            return render_to_response("ims_lti_py_sample/index.html",  RequestContext(request))
+            d = dict()
+            d['score'] = score
+            d['success'] = post_result.is_success()
+            d['result'] = result
+            d['show'] = True
+            return render_to_response("ims_lti_py_sample/index.html", d,  RequestContext(request))
         except KeyError,e:
             return render_to_response("ims_lti_py_sample/error.html",  RequestContext(request))
 

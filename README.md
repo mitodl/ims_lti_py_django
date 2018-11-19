@@ -1,3 +1,7 @@
+## Archived
+
+This repository has been archived. If you are looking for a Python library for LTI, we recommend https://github.com/mitodl/pylti
+
 IMS LTI Python Django Sample
 
 This is initial setup deployed on:
